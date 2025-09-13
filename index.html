@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>জন্ম তারিখ শব্দে রূপান্তর - BCT Tools Hub</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4f46e5; --primary-dark: #4338ca; --primary-light: #c7d2fe;
+            --secondary: #10b981;
+            --text-color: #111827; --text-muted: #6b7280;
+            --bg-color: #f7f8fc; --surface-color: #ffffff;
+            --border-color: #e5e7eb; --radius: 16px;
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container { max-width: 700px; margin: 20px auto; padding: 0 20px; width: 100%; flex-grow: 1; }
+        
+        /* Header */
+        .main-header { background: rgba(255, 255, 255, 0.8); padding: 15px 0; border-bottom: 1px solid var(--border-color); }
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: flex-start; align-items: center; }
+        .logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-color); }
+        .logo img { height: 45px; }
+        .logo-text { font-size: 1.3rem; font-weight: 800; }
+        .logo-text span { color: var(--primary); }
+
+        /* Page Header */
+        .page-header { text-align: center; padding: 30px 0; }
+        .page-header h1 { font-size: 2.8rem; font-weight: 800; }
+        .page-header p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 10px auto 0 auto; }
+
+        /* Converter Styles */
+        .converter-wrapper {
+            background: var(--surface-color); padding: 40px; border-radius: var(--radius);
+            box-shadow: var(--shadow-md); text-align: center;
+        }
+        .input-group { max-width: 400px; margin: 0 auto 30px auto; }
+        .input-group label { font-weight: 600; font-size: 1.1rem; display: block; margin-bottom: 12px; }
+        .input-group input[type="date"] {
+            width: 100%; padding: 12px; border: 1px solid var(--border-color);
+            border-radius: 8px; font-size: 1.1rem; font-family: inherit;
+        }
+        .convert-btn {
+            background: var(--primary); color: white; border: none; padding: 12px 40px;
+            border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1.1rem; transition: all 0.3s;
+        }
+        .convert-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        .result-wrapper {
+            margin-top: 30px; padding: 25px; background: var(--bg-color);
+            border-radius: 12px; border: 1px solid var(--border-color); text-align: left;
+        }
+        .result-item { margin-bottom: 25px; }
+        .result-item:last-child { margin-bottom: 0; }
+        .result-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .language-label { font-size: 1.1rem; font-weight: 600; color: var(--text-muted); }
+        .copy-btn {
+            background: var(--secondary); color: white; border: none; padding: 5px 15px;
+            border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 0.9rem;
+        }
+        .result-text { font-size: 1.8rem; font-weight: 700; color: var(--primary-dark); line-height: 1.4; }
+        #error-message { color: #be123c; font-weight: 600; margin-top: 15px; min-height: 24px; }
+
+        /* Footer */
+        .main-footer { background: var(--text-color); color: #a0aec0; padding: 40px 0 20px 0; margin-top: 50px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center; }
+        .footer-about .logo { margin-bottom: 20px; color: white; display: inline-flex; }
+        .footer-about p { max-width: 400px; margin: 0 auto 20px auto; }
+        .footer-bottom { border-top: 1px solid #4a5568; padding-top: 25px; font-size: 0.95rem; }
+        .footer-bottom a { color: var(--primary-light); text-decoration: none; font-weight: 600; }
+        .footer-bottom a:hover { text-decoration: underline; }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .page-header h1 { font-size: 2.1rem; }
+            .converter-wrapper { padding: 25px 20px; }
+            .result-text { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <img src="https://i.ibb.co/MyZXHdHf/app-icon.png" alt="BCT TOOLS HUB Logo">
+                <div class="logo-text">BCT<span> TOOLS HUB</span></div>
+            </a>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1>জন্ম তারিখ শব্দে রূপান্তর</h1>
+                <p>আপনার জন্ম তারিখ দিন এবং বাংলা ও ইংরেজি বানান পান।</p>
+            </div>
+            <div class="converter-wrapper">
+                <div class="input-group">
+                    <label for="date-input">আপনার জন্ম তারিখ নির্বাচন করুন</label>
+                    <input type="date" id="date-input">
+                </div>
+                <button id="convert-btn" class="convert-btn">রূপান্তর করুন</button>
+                <div id="result-wrapper" class="result-wrapper" style="display: none;">
+                    <div class="result-item">
+                        <div class="result-item-header">
+                            <span class="language-label">বাংলা:</span>
+                            <button class="copy-btn" data-target="result-text-bn">কপি</button>
+                        </div>
+                        <p id="result-text-bn" class="result-text"></p>
+                    </div>
+                     <div class="result-item">
+                        <div class="result-item-header">
+                            <span class="language-label">English:</span>
+                            <button class="copy-btn" data-target="result-text-en">Copy</button>
+                        </div>
+                        <p id="result-text-en" class="result-text"></p>
+                    </div>
+                </div>
+                <div id="error-message"></div>
+            </div>
+        </div>
+    </main>
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <a href="#" class="logo">
+                    <img src="https://i.ibb.co/MyZXHdHf/app-icon.png" alt="BCT TOOLS HUB Logo">
+                    <div class="logo-text">BCT<span> TOOLS HUB</span></div>
+                </a>
+                <p>BCT TOOLS HUB হলো Bangladesh Cyber Troops-এর একটি উদ্যোগ, যার লক্ষ্য প্রয়োজনীয় ডিজিটাল টুলস সবার জন্য সহজলভ্য করা।</p>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 BCT TOOLS HUB | Developed By <a href="https://contac.kelvinasford.netlify.app" target="_blank">Kelvin Ashford</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const dateInput = document.getElementById('date-input');
+        const convertBtn = document.getElementById('convert-btn');
+        const resultWrapper = document.getElementById('result-wrapper');
+        const errorMessage = document.getElementById('error-message');
+
+        // --- Bengali Converters ---
+        function bengaliNumberToWords(n) {
+            const units = ['', 'এক', 'দুই', 'তিন', 'চার', 'পাঁচ', 'ছয়', 'সাত', 'আট', 'নয়', 'দশ', 'এগারো', 'বারো', 'তেরো', 'চৌদ্দ', 'পনেরো', 'ষোল', 'সতেরো', 'আঠারো', 'উনিশ'];
+            const tens = ['', '', 'বিশ', 'ত্রিশ', 'চল্লিশ', 'পঞ্চাশ', 'ষাট', 'সত্তর', 'আশি', 'নব্বই'];
+            if (n < 20) return units[n];
+            if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + units[n % 10] : '');
+            return '';
+        }
+
+        function convertYearToBengaliWords(year) {
+            if (year >= 2000) {
+                const remainder = year % 1000;
+                return 'দুই হাজার' + (remainder > 0 ? ' ' + bengaliNumberToWords(remainder) : '');
+            } else if (year >= 1900) {
+                const remainder = year % 100;
+                return 'উনিশশ' + (remainder > 0 ? ' ' + bengaliNumberToWords(remainder) : '');
+            } else if (year >= 1100) {
+                 const century = Math.floor(year/100);
+                 const remainder = year % 100;
+                 return bengaliNumberToWords(century) + 'শ' + (remainder > 0 ? ' ' + bengaliNumberToWords(remainder) : '');
+            }
+            return year.toString(); // Fallback for very old years
+        }
+
+        const bengaliMonths = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+        function convertDayToBengaliOrdinal(day) {
+            if (day === 1) return 'পহেলা'; if (day === 2) return 'দোসরা'; if (day === 3) return 'তেসরা'; if (day === 4) return 'চৌঠা';
+            const baseWord = bengaliNumberToWords(day);
+            if (day >= 5 && day <= 18) return `${baseWord}ই`;
+            if (day >= 19 && day <= 31) {
+                if(baseWord.endsWith('শ')) return baseWord.slice(0, -1) + 'শে';
+                return baseWord + 'এ';
+            }
+            return '';
+        }
+
+        // --- English Converters ---
+        function convertNumberToEnglishWords(n) {
+            if (n === 0) return 'zero';
+            const a = ['','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+            const b = ['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+            let result = '';
+            if (n >= 1000) {
+                result += convertNumberToEnglishWords(Math.floor(n / 1000)) + ' thousand ';
+                n %= 1000;
+            }
+            if (n >= 100) {
+                result += a[Math.floor(n / 100)] + ' hundred ';
+                n %= 100;
+            }
+            if (n > 0) {
+                if (result !== '') result += '';
+                if (n < 20) result += a[n];
+                else {
+                    result += b[Math.floor(n / 10)];
+                    if (n % 10 > 0) result += '-' + a[n % 10];
+                }
+            }
+            return result.trim();
+        }
+
+        function convertDayToEnglishOrdinalWords(day) {
+            const word = convertNumberToEnglishWords(day);
+            const exceptions = { 'one': 'first', 'two': 'second', 'three': 'third', 'five': 'fifth', 'eight': 'eighth', 'nine': 'ninth', 'twelve': 'twelfth' };
+            for(const key in exceptions) {
+                if (word.endsWith(key)) return word.replace(key, exceptions[key]);
+            }
+            if (word.endsWith('y')) return word.slice(0, -1) + 'ieth';
+            return word + 'th';
+        }
+
+        const englishMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        // --- Main Logic ---
+        convertBtn.addEventListener('click', () => {
+            const dateValue = dateInput.value;
+            if (!dateValue) {
+                errorMessage.textContent = 'অনুগ্রহ করে একটি তারিখ নির্বাচন করুন।';
+                resultWrapper.style.display = 'none';
+                return;
+            }
+            errorMessage.textContent = '';
+            
+            const date = new Date(dateValue);
+            const day = date.getDate();
+            const monthIndex = date.getMonth();
+            const year = date.getFullYear();
+
+            // Bengali Conversion
+            document.getElementById('result-text-bn').textContent = `${convertDayToBengaliOrdinal(day)} ${bengaliMonths[monthIndex]}, ${convertYearToBengaliWords(year)}`;
+
+            // English Conversion
+            const dayEn = convertDayToEnglishOrdinalWords(day).replace(/\b\w/g, l => l.toUpperCase());
+            const monthEn = englishMonths[monthIndex];
+            const yearEn = convertNumberToEnglishWords(year).replace(/\b\w/g, l => l.toUpperCase());
+            document.getElementById('result-text-en').textContent = `${dayEn} of ${monthEn}, ${yearEn}`;
+
+            resultWrapper.style.display = 'block';
+        });
+
+        // --- Copy Logic ---
+        const copyButtons = document.querySelectorAll('.copy-btn');
+        copyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.dataset.target;
+                const textToCopy = document.getElementById(targetId).innerText;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = button.innerText;
+                    button.innerText = 'কপি হয়েছে!';
+                    setTimeout(() => {
+                        button.innerText = originalText;
+                    }, 2000);
+                });
+            });
+        });
+    });
+    </script>
+</body>
+</html>
